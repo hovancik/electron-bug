@@ -15,7 +15,7 @@ function createWindow () {
   setTimeout(closeWindow, 5000)
 }
 
-app.on('ready', timeouts)
+app.on('ready', startWindow)
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
@@ -29,15 +29,15 @@ app.on('ready', () => {
   ])
   tray.setContextMenu(contextMenu)
   updateToolTip()
-  setInterval(updateToolTip, 10000)
+  setInterval(updateToolTip, 1000)
 })
 
 function updateToolTip () {
   tray.setToolTip('Running application')
 }
 
-function timeouts () {
-  setInterval(createWindow, 20000)
+function startWindow () {
+  setTimeout(createWindow, 20000)
 }
 
 function closeWindow () {
@@ -45,4 +45,5 @@ function closeWindow () {
   win = null
   app.hide()
   updateToolTip()
+  startWindow()
 }
